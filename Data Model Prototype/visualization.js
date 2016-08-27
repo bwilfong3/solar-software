@@ -51,12 +51,23 @@ for(var i = 0; i < 6; i++){
 	}
 }*/
 
+		var tip = d3.tip()
+  			.attr('class', 'd3-tip')
+  			.offset([-10, 0])
+  			.html(function(d) {
+    		return "<strong>Ratio:</strong> <span style='color:red'>" + d.ratio + "</span>";
+  		});
+
+
+
 		var canvas = d3.select("#visualizationDiv")
 						.append("svg")
 						.text("Cu,Zn,Sl,Ln,Fe")
 						.attr("style", "outline: thick solid black;")
 						.attr("width", 425)
 						.attr("height",400);
+
+		canvas.call(tip);
 
 		var colorScale = d3.scaleLinear()
 								 .domain([0,4])
@@ -77,4 +88,6 @@ for(var i = 0; i < 6; i++){
 								.attr("y",function(d,c){
 									return 25 + (Math.floor(c / 6) * 60);
 								})
+								.on('mouseover', tip.show)
+      							.on('mouseout', tip.hide)
 								.text(function(d){return d.ratio;});
