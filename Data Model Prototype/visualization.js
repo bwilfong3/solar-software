@@ -47,8 +47,6 @@ for(var i = 0; i < 6; i++){
 
 		$("#energyReadings").find($('tr')).append($('<td>'));
 		$("#energyReadings").find($('td')).text(function(){return LOI1Data[i * 6 + j].reading;});
-
-		console.log("this happens" + LOI1Data[i * j].reading);
 	}
 }
 
@@ -60,7 +58,7 @@ for(var i = 0; i < 6; i++){
 						.attr("height",400);
 
 		var colorScale = d3.scaleLinear()
-								 .domain([0,60])
+								 .domain([0,4])
 								 .range(["white","purple"]);
 
 		var circles = canvas.selectAll("rect")
