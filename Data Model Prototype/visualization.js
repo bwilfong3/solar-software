@@ -1,10 +1,40 @@
-var dataArray = [{ratio:"[1:0:0:0]", reading:"10"},	{ratio:"[0:2:4:6]", reading:"20"},	{ratio:"[0:7:3:4]", reading:"30"},	{ratio:"[0:5:7:3]", reading:"40"},	{ratio:"[0:3:5:1]", reading:"20"},	{ratio:"[0:0:0:1]", reading:"20"},
-						 {ratio:"[1:0:0:0]", reading:"20"},	{ratio:"[0:2:4:6]", reading:"20"},	{ratio:"[0:7:3:4]", reading:"20"},	{ratio:"[0:5:7:3]", reading:"20"},	{ratio:"[0:3:5:1]", reading:"20"},	{ratio:"[0:0:0:1]", reading:"20"},
-						 {ratio:"[1:0:0:0]", reading:"20"},	{ratio:"[0:2:4:6]", reading:"20"},	{ratio:"[0:7:3:4]", reading:"20"},	{ratio:"[0:5:7:3]", reading:"20"},	{ratio:"[0:3:5:1]", reading:"20"},	{ratio:"[0:0:0:1]", reading:"20"},
-						 {ratio:"[1:0:0:0]", reading:"10"},	{ratio:"[0:2:4:6]", reading:"20"},	{ratio:"[0:7:3:4]", reading:"20"},	{ratio:"[0:5:7:3]", reading:"20"},	{ratio:"[0:3:5:1]", reading:"20"},	{ratio:"[0:0:0:1]", reading:"20"},
-						 {ratio:"[1:0:0:0]", reading:"20"},	{ratio:"[0:2:4:6]", reading:"20"},	{ratio:"[0:7:3:4]", reading:"20"},	{ratio:"[0:5:7:3]", reading:"20"},	{ratio:"[0:3:5:1]", reading:"20"},	{ratio:"[0:0:0:1]", reading:"20"},
-						 {ratio:"[1:0:0:0]", reading:"40"},	{ratio:"[0:2:4:6]", reading:"60"},	{ratio:"[0:7:3:4]", reading:"20"},	{ratio:"[0:5:7:3]", reading:"20"},	{ratio:"[0:3:5:1]", reading:"20"},	{ratio:"[0:0:0:1]", reading:"20"}
-						 ];
+var LOI1Data = [{ratio:"[1:0:0:0]", reading:"0.173035538768644"},	{ratio:"[1:0:0:0]", reading:"0.033928537013459"},	{ratio:"[1:0:0:0]", reading:"0.105178464741725"},	{ratio:"[1:0:0:0]", reading:"0.359642492342673"},	{ratio:"[1:0:0:0]", reading:"0.094999903637687"},	{ratio:"[1:0:0:0]", reading:"0"},
+				{ratio:"[5:5:6:0]", reading:"0.731159972640057"},	{ratio:"[5:5:6:0]", reading:"0.649731483807753"},	{ratio:"[5:5:6:0]", reading:"0.695535008775924"},	{ratio:"[5:5:6:0]", reading:"0.60223153198891"},	{ratio:"[5:5:6:0]", reading:"0.566606568124776"},	{ratio:"[5:5:6:0]", reading:"0.576785129228815"},
+				{ratio:"[7:6:7:0]", reading:"0.649731483807753"},	{ratio:"[7:6:7:0]", reading:"0.653124337509099"},	{ratio:"[7:6:7:0]", reading:"0.780356351309573"},	{ratio:"[7:6:7:0]", reading:"0.683660020821213"},	{ratio:"[7:6:7:0]", reading:"0.722677838386691"},	{ratio:"[7:6:7:0]", reading:"0.651427910658426"},
+				{ratio:"[3:1:6:0]", reading:"0.666695752314483"},	{ratio:"[3:1:6:0]", reading:"0.639552922703715"},	{ratio:"[3:1:6:0]", reading:"0.739642106893421"},	{ratio:"[3:1:6:0]", reading:"0.695535008775924"},	{ratio:"[3:1:6:0]", reading:"0.676874313418521"},	{ratio:"[3:1:6:0]", reading:"0.659910044911791"},
+				{ratio:"[1:2:1:0]", reading:"0.817677742024379"},	{ratio:"[1:2:1:0]", reading:"0.839731291083128"},	{ratio:"[1:2:1:0]", reading:"0.902499084558028"},	{ratio:"[1:2:1:0]", reading:"0.76169565595217"},	{ratio:"[1:2:1:0]", reading:"0.839731291083128"},	{ratio:"[1:2:1:0]", reading:"0.868570547544569"},
+				{ratio:"[0:0:0:1]", reading:"3.65240700949894"},	{ratio:"[0:0:0:1]", reading:"3.74401405943528"},	{ratio:"[0:0:0:1]", reading:"2.58874737412698"},	{ratio:"[0:0:0:1]", reading:"2.43946181126775"},	{ratio:"[0:0:0:1]", reading:"2.30714051691526"},	{ratio:"[0:0:0:1]", reading:"3.61678204563481"}
+			];
+
+var elementInfo = [
+	{
+		elementName: "Copper",
+		atomicSymbol: "Cu",
+		saltUsed: "Cu(NO3)2",
+		concentration: 0.04
+	},
+
+	{
+		elementName: "Zinc",
+		atomicSymbol: "Zn",
+		saltUsed: "Zn(NO3)2",
+		concentration: 0.04
+	},
+
+	{
+		elementName: "Aluminium",
+		atomicSymbol: "Al",
+		saltUsed: "Al(NO3)3",
+		concentration: 0.04
+	},
+
+	{
+		elementName: "Iron",
+		atomicSymbol: "Fe",
+		saltUsed: "Fe(NO3)3",
+		concentration: 0.04
+	}
+]
 
 var tableRow = document.createElement("tr");
 var tableData = document.createTextNode("");
@@ -16,9 +46,9 @@ for(var i = 0; i < 6; i++){
 	for(var j = 0; j < 6; j++){
 
 		$("#energyReadings").find($('tr')).append($('<td>'));
-		$("#energyReadings").find($('td')).text(function(){return dataArray[i * 6 + j].reading;});
+		$("#energyReadings").find($('td')).text(function(){return LOI1Data[i * 6 + j].reading;});
 
-		console.log("this happens" + dataArray[i * j].reading);
+		console.log("this happens" + LOI1Data[i * j].reading);
 	}
 }
 
@@ -34,7 +64,7 @@ for(var i = 0; i < 6; i++){
 								 .range(["white","purple"]);
 
 		var circles = canvas.selectAll("rect")
-							.data(dataArray)
+							.data(LOI1Data)
 							.enter()
 								.append("rect")
 								.attr("height", 50)
