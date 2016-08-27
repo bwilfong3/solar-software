@@ -1,6 +1,6 @@
 // d3.tip
 // Copyright (c) 2013 Justin Palmer
-//
+// Used under the MIT Copyright license as indicated by the author's request.
 // Tooltips for d3.js SVG visualizations
 
 (function (root, factory) {
