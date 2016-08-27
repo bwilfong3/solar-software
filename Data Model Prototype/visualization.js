@@ -7,6 +7,7 @@ var LOI1Data = [{ratio:"[1:0:0:0]", reading:"0.173035538768644"},	{ratio:"[1:0:0
 			];
 
 var elementInfo = [
+
 	{
 		elementName: "Copper",
 		atomicSymbol: "Cu",
@@ -35,7 +36,7 @@ var elementInfo = [
 		concentration: 0.04
 	}
 ]
-
+/*
 var tableRow = document.createElement("tr");
 var tableData = document.createTextNode("");
 
@@ -48,7 +49,7 @@ for(var i = 0; i < 6; i++){
 		$("#energyReadings").find($('tr')).append($('<td>'));
 		$("#energyReadings").find($('td')).text(function(){return LOI1Data[i * 6 + j].reading;});
 	}
-}
+}*/
 
 		var canvas = d3.select("#visualizationDiv")
 						.append("svg")
@@ -76,6 +77,4 @@ for(var i = 0; i < 6; i++){
 								.attr("y",function(d,c){
 									return 25 + (Math.floor(c / 6) * 60);
 								})
-								.text(function(d){return d.ratio;})
-								.on("click", function(d) {
-        							alert("Ratio: " + d.ratio);});
+								.text(function(d){return d.ratio;});
