@@ -55,7 +55,8 @@ for(var i = 0; i < 6; i++){
   			.attr('class', 'd3-tip')
   			.offset([-10, 0])
   			.html(function(d) {
-    		return "<strong>Ratio:</strong> <span style='color:red'>" + d.ratio + "</span>";
+    		return "<strong>Ratio:</strong> <span style='color:blue'>" + d.ratio + "</span></br>" +
+    			   "<strong>Reading:</strong> <span style='color:blue'>" + d.reading + "</span></br>";
   		});
 
 
