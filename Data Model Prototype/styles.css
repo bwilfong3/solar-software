@@ -18,6 +18,11 @@
 	top: 200px;
 }
 
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
 /* Styles courtesy of http://bl.ocks.org/Caged/6476579 by Justin Palmer */
 
 .d3-tip {
