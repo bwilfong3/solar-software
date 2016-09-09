@@ -8,7 +8,8 @@ public class DatabaseConnector {
 		// JDBC driver name and database URL - for MySQL
 	Connection connection;
 	boolean connectionSuccessful;
-	String input, userName, password;
+	String input, userName;
+	char[] password;
 	
 	DatabaseConnector(){
 		try{
@@ -16,16 +17,15 @@ public class DatabaseConnector {
 			System.out.println("Please enter your username:");
 			userName = System.console().readLine();
 			System.out.println("Please enter your password:");
-			password = System.console().readLine();
-//			connection = DriverManager.getConnection
-//					( "jdbc:mysql://localhost/solararmy?autoReconnect=true&useSSL=false", 
-//							userName, password);} // for when we have an account set up
+			password = System.console().readPassword();
 			connection = DriverManager.getConnection
 					( "jdbc:mysql://localhost/solararmy?autoReconnect=true&useSSL=false", 
-							"root", "");}
+							userName, password.toString());
+			} 
+	
 		catch(SQLException sqle){
 			sqle.printStackTrace();
-			System.out.println("SQL Exception occurred.");
+			System.out.println("SQL Exception occurred. Connection Unsuccessful");
 			connectionSuccessful = false;
 		}
 		catch(ClassNotFoundException cnfe){
