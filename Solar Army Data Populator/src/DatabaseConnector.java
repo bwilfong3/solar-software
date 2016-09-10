@@ -20,7 +20,7 @@ public class DatabaseConnector {
 			password = System.console().readPassword();
 			connection = DriverManager.getConnection
 					( "jdbc:mysql://localhost/solararmy?autoReconnect=true&useSSL=false", 
-							userName, password.toString());
+							userName, String.valueOf(password));
 			} 
 	
 		catch(SQLException sqle){
