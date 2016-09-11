@@ -7,38 +7,54 @@ public class DatabaseConnector {
 	static final String 	JDBC_DRIVER = "com.mysql.jdbc.Driver";
 		// JDBC driver name and database URL - for MySQL
 	Connection connection;
-	boolean connectionSuccessful;
+	boolean connectionSuccessful = false;
+	boolean authenticated = false;
 	String input, userName;
 	char[] password;
+	int attempts = 0;
 	
 	DatabaseConnector(){
+
 		try{
-			Class.forName( JDBC_DRIVER ); // load database driver class
-			System.out.println("Please enter your username:");
-			userName = System.console().readLine();
-			System.out.println("Please enter your password:");
-			password = System.console().readPassword();
-			connection = DriverManager.getConnection
-					( "jdbc:mysql://localhost/solararmy?autoReconnect=true&useSSL=false", 
-							userName, String.valueOf(password));
-			} 
-	
-		catch(SQLException sqle){
-			sqle.printStackTrace();
-			System.out.println("SQL Exception occurred. Connection Unsuccessful");
-			connectionSuccessful = false;
+			Class.forName( JDBC_DRIVER );// load database driver class
+			connectionSuccessful = true;
 		}
 		catch(ClassNotFoundException cnfe){
 			System.out.println("Error loading JDBC driver.");
-			
 			cnfe.printStackTrace();
-			
 			connectionSuccessful = false;
 		}
-		
-		connectionSuccessful = true;
-		
-		System.out.println("Connection to database was successful.");
+		if(connectionSuccessful){
+			
+			do{
+				try{
+					if (attempts > 0)
+						 System.out.println("Please re-enter your credentials");
+					
+					System.out.println("Please enter your username:");
+					userName = System.console().readLine();
+					System.out.println("Please enter your password:");
+					password = System.console().readPassword();
+					attempts++; // increment the amount of log in attempts tried.
+					connection = DriverManager.getConnection
+							( "jdbc:mysql://localhost/solararmy?autoReconnect=true&useSSL=false", 
+									userName, String.valueOf(password));
+					authenticated = true; // exception was NOT thrown
+					connectionSuccessful = true;
+				} 
+	
+				catch(SQLException sqle){
+					System.out.println("Error authenticating with database.");
+					authenticated = false;
+				}
+								
+			}while(!authenticated && attempts < 3);
+			
+			connectionSuccessful = authenticated; // Did you finally authenticate?
+		}
+			
+		if(!connectionSuccessful)
+			System.out.println("Unable to connect to database. Please contact Ben if you are having issues.");
 	}
 	
 	boolean isConnection(){
