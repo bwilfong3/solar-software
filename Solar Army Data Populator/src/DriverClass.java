@@ -20,11 +20,13 @@ public class DriverClass {
                 
         if (dbc.connectionSuccessful){
             System.out.println("Connection to database successful.");
-            System.out.println("Welcome to the solar army data populator\n." + 
-                               "Options:\n add\n quit");
+            System.out.println("Welcome to the solar army data populator\n" + 
+                               "Options:\n  add\n  quit");
             
-            keepGoing = System.console().readLine() != "quit";
+            keepGoing = !System.console().readLine().equals("quit");
         }
+        else
+        	return;
         
         while(keepGoing){
 
@@ -41,7 +43,7 @@ public class DriverClass {
 	        if (returnValue == JFileChooser.APPROVE_OPTION) {
 	          template = fileChooser.getSelectedFile();
 	          
-	          System.out.println(template.getName());
+	          System.out.println("Template file chosen: " + template.getName());
 	          
 	          // get data about file using name. Is it new? Has R or B already been done?
 	          // Check to see if a file name exists for either.
@@ -63,7 +65,7 @@ public class DriverClass {
 	        if (returnValue == JFileChooser.APPROVE_OPTION) {
 	          data = fileChooser.getSelectedFile();
 	
-	          System.out.println(data.getName());
+	          System.out.println("Data file chosen: " + data.getName());
 	        }
 	        
 	        else{
@@ -107,15 +109,31 @@ public class DriverClass {
 // ===================================================================================
 // Get the pertinent information from each file
         
+	        System.out.println("\n======================================= Data gathered from files =======================================\n");
+	        
 	        SolarDataParser sdp = new SolarDataParser();
 	        
 	        System.out.println("Template Data:");
 	        sdp.parseTemplateElementData(template);
-	        //sdp.parseTemplateRatioData(template);
-	        //sdp.parseResultsData(data, xStart, yStart, xEnd, yEnd); // get data from appropriate coordinates
+	        System.out.println(); // formatting
+	        System.out.println("Elements extracted from template file:");
+	        sdp.parseTemplateRatioData(template);
+	        System.out.println("Data extracted from data file (Precision up to 5 decimal places shown for formatting. "
+	        				 + "Trailing digits still stored.)");
+	        sdp.parseResultsData(data, xStart, yStart, xEnd, yEnd); // get data from appropriate coordinates
 	        
+	        System.out.println(); // formatting
 	        System.out.println("Is this the data you want to enter into the database? Enter y/n");
-	        keepGoing = System.console().readLine().toLowerCase() == "y"; 
+	        
+	        if(System.console().readLine().toLowerCase().equals("y"))
+	        	System.out.println("Data submitted to database.");
+	        	// obviously call for the data to be thrown to database here
+	        else
+	        	System.out.println("Data not submitted to database");
+	        
+	        System.out.println("Do you wish to continue populating the database? Enter y/n");
+        	keepGoing = System.console().readLine().toLowerCase().equals("y");
+	        
 
 // ===================================================================================
 // Put the data in the database
