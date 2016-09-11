@@ -12,7 +12,7 @@ public class ElementEntry {
 	
 	@Override public String toString(){
 		return "Atomic Symbol: " + atomicSymbol + '\n'
-			 + "Salt Used: " + atomicSymbol + '\n'
-			 + "Concentration: " + atomicSymbol + '\n';
+			 + "Salt Used: " + salt + '\n'
+			 + "Concentration: " + concentration + '\n';
 	}
 }
