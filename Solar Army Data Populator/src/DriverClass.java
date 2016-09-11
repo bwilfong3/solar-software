@@ -109,10 +109,13 @@ public class DriverClass {
         
 	        SolarDataParser sdp = new SolarDataParser();
 	        
+	        System.out.println("Template Data:");
 	        sdp.parseTemplateElementData(template);
-	        sdp.parseTemplateRatioData(template);
-	        sdp.parseResultsData(data, xStart, yStart, xEnd, yEnd); // get data from appropriate coordinates
+	        //sdp.parseTemplateRatioData(template);
+	        //sdp.parseResultsData(data, xStart, yStart, xEnd, yEnd); // get data from appropriate coordinates
 	        
+	        System.out.println("Is this the data you want to enter into the database? Enter y/n");
+	        keepGoing = System.console().readLine().toLowerCase() == "y"; 
 
 // ===================================================================================
 // Put the data in the database
