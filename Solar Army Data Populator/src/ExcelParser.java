@@ -4,6 +4,7 @@
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -17,10 +18,10 @@ public class ExcelParser {
 	
 	File excelFile;
 	FileInputStream fis;
-	public Vector<ExcelCellData> parseResults;
+	public Hashtable<IntPair, ExcelCellData> parseResults;
 	
 	ExcelParser(){
-		parseResults = new Vector<ExcelCellData>();
+		parseResults = new Hashtable<IntPair, ExcelCellData>();
 	}
 	
 	public boolean parseData(File f, int sheetNumber){
@@ -39,7 +40,7 @@ public class ExcelParser {
 			
 			workbook = new HSSFWorkbook(fis);
 			
-			sheet = workbook.getSheetAt(sheetNumber - 1);
+			sheet = workbook.getSheetAt(sheetNumber);
 			
 			rowIterator = sheet.iterator();
 			
@@ -55,34 +56,39 @@ public class ExcelParser {
 					
 					switch(cellType){
 						case Cell.CELL_TYPE_BLANK : 
-							System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is blank");
-							parseResults.add(new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "blank"));
+							//System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is blank");
+							parseResults.put(new IntPair(cell.getRowIndex(), cell.getColumnIndex()),
+											 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "blank"));
 						break;
 						
 						case Cell.CELL_TYPE_BOOLEAN : 
-							System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() 
-											 + " Type is boolean: " + cell.getBooleanCellValue());
-							parseResults.add(new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "" + cell.getBooleanCellValue()));
+							//System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() 
+							//				 + " Type is boolean: " + cell.getBooleanCellValue());
+							parseResults.put(new IntPair(cell.getRowIndex(), cell.getColumnIndex()),
+									 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "blank"));
 						break;
 						
 						case Cell.CELL_TYPE_ERROR : 
-							System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is error: " + cell.getErrorCellValue());
-							parseResults.add(new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "error"));		
+							//System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is error: " + cell.getErrorCellValue());
+							parseResults.put(new IntPair(cell.getRowIndex(), cell.getColumnIndex()),
+									 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "blank"));		
 						break;
 						
 						case Cell.CELL_TYPE_FORMULA : 
-							System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is formula: " + cell.getCellFormula());
-							parseResults.add(new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), cell.getCellFormula()));
+							//System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is formula: " + cell.getCellFormula());
+							parseResults.put(new IntPair(cell.getRowIndex(), cell.getColumnIndex()),
+									 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "blank"));
 						break;
 						
 						case Cell.CELL_TYPE_NUMERIC : 
-							System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is numeric: " + cell.getNumericCellValue());
-							parseResults.add(new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "" + cell.getNumericCellValue()));
-						break;
+							//System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is numeric: " + cell.getNumericCellValue());
+							parseResults.put(new IntPair(cell.getRowIndex(), cell.getColumnIndex()),
+									 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "blank"));						break;
 						
 						case Cell.CELL_TYPE_STRING : 
-							System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is string: " + cell.getStringCellValue());
-							parseResults.add(new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), cell.getStringCellValue()));
+							//System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is string: " + cell.getStringCellValue());
+							parseResults.put(new IntPair(cell.getRowIndex(), cell.getColumnIndex()),
+									 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), cell.getStringCellValue()));
 						break;
 					}
 				}	
@@ -97,7 +103,7 @@ public class ExcelParser {
 		return successfulParse;
 	}
 	
-	Vector<ExcelCellData> getCellDataVector(){
+	Hashtable<IntPair, ExcelCellData> getCellDataTable(){
 		return parseResults;
 	}
 }
