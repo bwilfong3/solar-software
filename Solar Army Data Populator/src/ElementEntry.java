@@ -9,4 +9,10 @@ public class ElementEntry {
 		this.salt = salt;
 		this.concentration = concentration;
 	}
+	
+	@Override public String toString(){
+		return "Atomic Symbol: " + atomicSymbol + '\n'
+			 + "Salt Used: " + atomicSymbol + '\n'
+			 + "Concentration: " + atomicSymbol + '\n';
+	}
 }
