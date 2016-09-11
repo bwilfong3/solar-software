@@ -65,25 +65,26 @@ public class ExcelParser {
 							//System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() 
 							//				 + " Type is boolean: " + cell.getBooleanCellValue());
 							parseResults.put(new IntPair(cell.getRowIndex(), cell.getColumnIndex()),
-									 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "blank"));
+									 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "" + cell.getBooleanCellValue()));
 						break;
 						
 						case Cell.CELL_TYPE_ERROR : 
 							//System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is error: " + cell.getErrorCellValue());
 							parseResults.put(new IntPair(cell.getRowIndex(), cell.getColumnIndex()),
-									 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "blank"));		
+									 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "Error"));		
 						break;
 						
 						case Cell.CELL_TYPE_FORMULA : 
 							//System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is formula: " + cell.getCellFormula());
 							parseResults.put(new IntPair(cell.getRowIndex(), cell.getColumnIndex()),
-									 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "blank"));
+									 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), cell.getCellFormula()));
 						break;
 						
 						case Cell.CELL_TYPE_NUMERIC : 
 							//System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is numeric: " + cell.getNumericCellValue());
 							parseResults.put(new IntPair(cell.getRowIndex(), cell.getColumnIndex()),
-									 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), "blank"));						break;
+									 new ExcelCellData(cell.getRowIndex(), cell.getColumnIndex(), cell.getNumericCellValue() + ""));						
+						break;
 						
 						case Cell.CELL_TYPE_STRING : 
 							//System.out.println("Cell " + cell.getRowIndex() + "," + cell.getColumnIndex() + " Type is string: " + cell.getStringCellValue());
