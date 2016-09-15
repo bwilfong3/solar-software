@@ -1,12 +1,17 @@
-DROP TABLE IF EXISTS contains_mixture;
-DROP TABLE IF EXISTS contains_element;
-DROP TABLE IF EXISTS plate;
-DROP TABLE IF EXISTS composition;
-
-DROP TABLE IF EXISTS template;
 DROP TABLE IF EXISTS composes;
 DROP TABLE IF EXISTS associated_with_data;
+DROP TABLE IF EXISTS template;
 DROP TABLE IF EXISTS data_file;
+
+#==================================================================================
+
+#CREATE TABLE element(
+#	atomicSymbol VARCHAR(5) NOT NULL,
+#    eName        VARCHAR(30) NOT NULL,
+#    atomicNumber INT UNSIGNED NOT NULL,
+    
+#    PRIMARY KEY (atomicSymbol)
+#);
 
 #==================================================================================
 
@@ -20,13 +25,14 @@ CREATE TABLE template(
 
 #==================================================================================
 
-#CREATE TABLE element(
-#	atomicSymbol VARCHAR(5) NOT NULL,
-#    eName        VARCHAR(30) NOT NULL,
-#    atomicNumber INT UNSIGNED NOT NULL,
+CREATE TABLE data_file(
+	uid INT UNSIGNED NOT NULL,
+	d_file_name      VARCHAR(255) NOT NULL,
+	submitted_by VARCHAR(255) NOT NULL,
+    data_readings VARCHAR(4096) NOT NULL,
     
-#    PRIMARY KEY (atomicSymbol)
-#);
+    PRIMARY KEY (uid)
+);
 
 #==================================================================================
 
@@ -52,14 +58,4 @@ CREATE TABLE associated_with_data(
     FOREIGN KEY(uid) REFERENCES data_file(uid)
 );
 
-#==================================================================================
-
-CREATE TABLE data_file(
-	uid INT UNSIGNED NOT NULL,
-	d_file_name      VARCHAR(255) NOT NULL,
-	submitted_by VARCHAR(255) NOT NULL,
-    data_readings VARCHAR(4096) NOT NULL,
-    
-    FOREIGN KEY(uid) REFERENCES associated_with_data(uid)
-);
 
