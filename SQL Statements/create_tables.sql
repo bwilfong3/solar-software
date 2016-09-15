@@ -2,58 +2,64 @@ DROP TABLE IF EXISTS contains_mixture;
 DROP TABLE IF EXISTS contains_element;
 DROP TABLE IF EXISTS plate;
 DROP TABLE IF EXISTS composition;
-DROP TABLE IF EXISTS element;
 
+DROP TABLE IF EXISTS template;
+DROP TABLE IF EXISTS composes;
+DROP TABLE IF EXISTS associated_with_data;
+DROP TABLE IF EXISTS data_file;
 
 #==================================================================================
 
-CREATE TABLE plate(
-	pName VARCHAR(255) NOT NULL,
+CREATE TABLE template(
+    t_file_name VARCHAR(255) NOT NULL,
+    submitted_by VARCHAR(255) NOT NULL,
+    ratio_data VARCHAR(2048) NOT NULL,
     
-    PRIMARY KEY (pName)
+    PRIMARY KEY (t_file_name)
 );
 
 #==================================================================================
 
-CREATE TABLE composition(
-    tableRow INT UNSIGNED NOT NULL,
-    tableCol INT UNSIGNED NOT NULL,
-    reading  DOUBLE NOT NULL,
+#CREATE TABLE element(
+#	atomicSymbol VARCHAR(5) NOT NULL,
+#    eName        VARCHAR(30) NOT NULL,
+#    atomicNumber INT UNSIGNED NOT NULL,
     
-    PRIMARY KEY (tableRow, tableCol)
+#    PRIMARY KEY (atomicSymbol)
+#);
+
+#==================================================================================
+
+CREATE TABLE composes(
+    t_file_name VARCHAR(255) NOT NULL,
+    atomicSymbol VARCHAR(5) NOT NULL,
+    pos INT UNSIGNED NOT NULL,
+    concentration VARCHAR(10) NOT NULL,
+    salt_used VARCHAR(20) NOT NULL,
+    
+    FOREIGN KEY(t_file_name) REFERENCES template(t_file_name),
+    FOREIGN KEY(atomicSymbol) REFERENCES element(atomicSymbol)
+);
+
+
+#==================================================================================
+
+CREATE TABLE associated_with_data(
+	t_file_name VARCHAR(255) NOT NULL,
+    uid INT UNSIGNED NOT NULL,
+    
+    FOREIGN KEY(t_file_name)        REFERENCES template(t_file_name),
+    FOREIGN KEY(uid) REFERENCES data_file(uid)
 );
 
 #==================================================================================
 
-CREATE TABLE element(
-	atomicSymbol VARCHAR(2) NOT NULL,
-    eName        VARCHAR(30) NOT NULL,
-    atomicNumber INT UNSIGNED NOT NULL,
+CREATE TABLE data_file(
+	uid INT UNSIGNED NOT NULL,
+	d_file_name      VARCHAR(255) NOT NULL,
+	submitted_by VARCHAR(255) NOT NULL,
+    data_readings VARCHAR(4096) NOT NULL,
     
-    PRIMARY KEY (atomicSymbol)
-);
-
-#==================================================================================
-
-CREATE TABLE contains_mixture(
-	pName    VARCHAR(255) NOT NULL,
-    tableRow INT UNSIGNED NOT NULL,
-    tableCol INT UNSIGNED NOT NULL,
-    
-    FOREIGN KEY(pName)              REFERENCES plate(pName),
-    FOREIGN KEY(tableRow, tableCol) REFERENCES composition(tableRow, tableCol)
-);
-
-#==================================================================================
-
-CREATE TABLE contains_element(
-	pName        VARCHAR(255) NOT NULL,
-    tableRow     INT UNSIGNED NOT NULL,
-    tableCol     INT UNSIGNED NOT NULL,
-    atomicSymbol VARCHAR(2) NOT NULL,
-    
-    FOREIGN KEY(pName)              REFERENCES plate(pName),
-    FOREIGN KEY(tableRow, tableCol) REFERENCES composition(tableRow, tableCol),
-    FOREIGN KEY(atomicSymbol)       REFERENCES element(atomicSymbol)
+    FOREIGN KEY(uid) REFERENCES associated_with_data(uid)
 );
 
