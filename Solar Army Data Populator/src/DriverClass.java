@@ -16,7 +16,7 @@ public class DriverClass {
         
 // ===================================================================================
 // Connect to database
-        DatabaseConnector dbc = new DatabaseConnector();
+        SolarArmyDBC dbc = new SolarArmyDBC();
                 
         if (dbc.connectionSuccessful){
             System.out.println("Connection to database successful.");
