@@ -7,7 +7,7 @@ public class DriverClass {
     public static void main(String[] args) {
         
         File template, data;
-        boolean keepGoing = true, validInput = true;
+        boolean keepGoing = true, validInput = true, needToAddTemplate;
         String[] input;
         int xStart = 0,
         	yStart = 0,
@@ -45,6 +45,8 @@ public class DriverClass {
 	          
 	          System.out.println("Template file chosen: " + template.getName());
 	          
+	          needToAddTemplate = dbc.checkIfTemplateExists(template.getName());
+	          	// use this flag to add the template at the very end
 	          // get data about file using name. Is it new? Has R or B already been done?
 	          // Check to see if a file name exists for either.
 	          
