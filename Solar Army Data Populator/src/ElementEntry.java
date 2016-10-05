@@ -5,7 +5,8 @@ public class ElementEntry {
 	String concentration;
 	
 	ElementEntry(String atomicSymbol, String salt, String concentration){
-		this.atomicSymbol = atomicSymbol;
+		this.atomicSymbol = atomicSymbol.trim();
+		this.atomicSymbol = atomicSymbol.toLowerCase();
 		this.salt = salt;
 		this.concentration = concentration;
 	}
