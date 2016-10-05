@@ -2,6 +2,7 @@ import java.io.File;
 import java.util.Vector;
 
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class DriverClass {
 
@@ -19,6 +20,10 @@ public class DriverClass {
         Vector<String> ratios = new Vector<String>();
         Vector<Double> readings = new Vector<Double>();
         Vector<ElementEntry> elements = new Vector<ElementEntry>();
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter xlsFilter = new FileNameExtensionFilter("xls files (*.xls)", "xls");
+        
+        fileChooser.setFileFilter(xlsFilter); // Safety for ONLY adding .xls files.
         
 // ===================================================================================
 // Connect to database
@@ -44,8 +49,7 @@ public class DriverClass {
 // ===================================================================================
 // Grab the appropriate files for parsing
 
-	        JFileChooser fileChooser = new JFileChooser();
-
+	        
 	        System.out.println("Enter the unique ID for the template file"); 
 	        	// we use this to see if we need to get a template file or
 	        	// if we already have that one in the database.
@@ -169,14 +173,15 @@ public class DriverClass {
 	        System.out.println("Data extracted from data file (Precision up to 5 decimal places shown for formatting. "
 	        				 + "Trailing digits still stored.)");
 	        //readings = sdp.parseResultsData(data, xStart, yStart, xEnd, yEnd); // for when the data can be inverted
-	        readings = sdp.parseResultsData(data, 1, 1, 7, 7); // get data from appropriate coordinates
+	        readings = sdp.parseResultsData(data, 1, 1, 7, 7); // get data from appropriate coordinates (fixed)
 	        
 	        System.out.println(); // formatting
 	        System.out.println("Is this the data you want to enter into the database? Enter y/n");
 	        
 	        
 	        if(System.console().readLine().toLowerCase().equals("y")){
-	        	System.out.println("Data submitted to database.");
+	        	System.out.println("Submitting data to database...");
+	        	System.out.println("======================================================================\n");
 	        	if(!templateExists)
 	        		if(!dbc.sendTemplateData(uid, plateRunner, ratios, elements)){
 	        			System.out.println("Error adding template to database. Terminating program.");
@@ -184,6 +189,11 @@ public class DriverClass {
 	        		}
 	        	
 	        	dbc.sendResultsData(uid,color,readings);
+	        	
+	        	System.out.println("\nData file used: " + data.getName());
+	        	System.out.println("Color lead on plate: " + color);
+	        	System.out.println("\n======================================================================");
+	        	System.out.println("Data submitted to database.");
 	        }
 	        else
 	        	System.out.println("Data not submitted to database");
