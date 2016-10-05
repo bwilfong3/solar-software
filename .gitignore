@@ -1,2 +1,5 @@
 #Readme Workflow file
 Workflow\ Notes\ \[README\].txt
+#DBC is done. Stop updating for security reasons (credentials)
+"Solar Army Data Populator/src/DatabaseConnector.java"
+"SQL Statements/removetables.sql"
